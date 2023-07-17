@@ -7,42 +7,14 @@ import Cherry from 'cherry-markdown/dist/cherry-markdown.core';
 import 'cherry-markdown/dist/cherry-markdown.css';
 
 import { useRouter,useRoute } from 'vue-router'
+import { setInterval } from "timers";
 
-const greetMsg = ref("");
-const name = ref("");
-
-const { open } = dialog;
-
-var cherryInstance: Cherry;
-
-
-var select_files: string[] = [];
-
+var cherryInstance: Cherry
 
 const router = useRouter()
 const route = useRoute()
 
-
-async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-  greetMsg.value = await invoke("greet", { name: name.value });
-}
-
-async function openFiles() {
-  console.log("openFiles >>")
-  const files: string[] = await open({ multiple: true }) as string[];
-  if (files != null && files.length > 0) {
-    select_files = [];
-    files.forEach(async filePath => {
-      console.log("filepath = ", filePath);
-      select_files[select_files.length] = filePath;
-    })
-    console.log("file path >>> ", select_files);
-  }
-}
-
-
-
+var filepath: string|null = null
 
 onMounted(() => { 
   console.log("onMounted >>>>>")
@@ -55,7 +27,7 @@ onMounted(() => {
   console.log(route.query["filepath"])
   const tFilePath:string = route.query["filepath"] as string
   if (tFilePath) {
-    const filepath = decodeURIComponent(tFilePath)
+    filepath = decodeURIComponent(tFilePath)
     openFile(filepath)
   }
   
@@ -71,6 +43,27 @@ async function openFile(filepath:string) {
 
 }
 
+function autoSaveFile(){
+
+  setTimeout(() => {
+    
+    console.log("auto save >>>>",filepath);
+    const contentStr = cherryInstance.getMarkdown();
+    console.log("contentStr = ",contentStr)
+
+    saveFile(filepath || "",contentStr);
+
+    autoSaveFile();
+
+  }, 10*1000)
+
+}
+
+async function saveFile(filepath:string,content:string) {
+   await fs.writeTextFile(filepath,content)
+}
+
+autoSaveFile();
 
 
 </script>

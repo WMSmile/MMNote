@@ -78,13 +78,14 @@ class Windows {
     async listen() {
         // 创建新窗体
         await listen('win-create', (event) => {
-            console.log(event)
+            console.log("win-create >>> ",event)
             const content: string = event.payload as string;
             this.createWin(JSON.parse(content))
         })
 
         // 显示窗体
         await listen('win-show', async(event) => {
+            console.log("win-show >>> ",event)
             if(appWindow.label.indexOf('main') == -1) return
             await appWindow.show()
             await appWindow.unminimize()
@@ -93,17 +94,21 @@ class Windows {
 
         // 隐藏窗体
         await listen('win-hide', async(event) => {
+            console.log("win-hide >>> ",event)
             if(appWindow.label.indexOf('main') == -1) return
             await appWindow.hide()
         })
 
         // 退出应用
         await listen('win-exit', async(event) => {
+            console.log("win-exit >>> ",event)
+            console.log("win-exit >>>> ");
             await exit()
         })
 
         // 重启应用
         await listen('win-relaunch', async(event) => {
+            console.log("win-relaunch >>> ",event)
             await relaunch()
         })
 

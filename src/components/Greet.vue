@@ -60,6 +60,7 @@ function openNewWindowsForFiles(files:string[]) {
       minHeight: 320,
       decorations: true,
     })
+    wins.listen();
   })
 
 

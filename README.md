@@ -22,5 +22,6 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 cd MMNote
 pnpm install
 pnpm tauri dev
+pnpm tauri build
 
 ```

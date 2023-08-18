@@ -33,3 +33,20 @@ export const store = createStore<RootState>({
 export function useStore(): CommonStore {
     return baseUseStore(key);
 }
+
+
+
+// 如何使用实例
+
+// <template>
+// </template>
+ 
+ 
+// <script setup lang='ts'>
+// // 这里要注意，引入的是我们自定义的useStore，不是vuex里面的useStore
+// import { useStore } from './store';
+// const store = useStore()
+// store.getters['menu/getCount']
+// store.dispatch('menu/setAsyncCount')
+// store.commit('menu/setCount')
+// </script>

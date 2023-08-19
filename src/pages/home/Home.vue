@@ -6,6 +6,11 @@ import Windows from "../../common/windows";
 
 import { Md5 } from "ts-md5";
 
+import { Menu as IconMenu, Message, Setting } from '@element-plus/icons-vue'
+
+import EditMarkDown from "../markdown/EditMarkDown.vue";
+
+
 const greetMsg = ref("");
 const name = ref("");
 
@@ -74,18 +79,18 @@ function openNewWindows() {
 }
 
 let tabIndex = 2;
-const editableTabsValue = ref("2");
+const editableTabsValue = ref("1");
 const editableTabs = ref([
   {
     title: "Tab 1",
     name: "1",
     content: "Tab 1 content",
   },
-  {
-    title: "Tab 2",
-    name: "2",
-    content: "Tab 2 content",
-  },
+  // {
+  //   title: "Tab 2",
+  //   name: "2",
+  //   content: "Tab 2 content",
+  // },
 ]);
 
 const addTab = (targetName: string) => {
@@ -200,9 +205,19 @@ const removeTab = (targetName: string) => {
           :label="item.title"
           :name="item.name"
         >
-          {{ item.content }}
+          <!-- {{ item.content }} -->
+          <EditMarkDown path="/Users/wumeng/Desktop/test.md"></EditMarkDown>
+
         </el-tab-pane>
       </el-tabs>
     </el-main>
   </el-container>
 </template>
+
+<style lang="css">
+
+.el-main{
+  padding: 0rpx;
+}
+
+</style>

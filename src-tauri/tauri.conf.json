@@ -23,7 +23,7 @@
       },
       "window": {
         "all": true,
-        "create": true, 
+        "create": true,
         "center": true,
         "requestUserAttention": true,
         "setResizable": true,
@@ -58,7 +58,7 @@
         "print": true
       },
       "fs": {
-        "all": true, 
+        "all": true,
         "readFile": true,
         "writeFile": true,
         "readDir": true,
@@ -67,9 +67,9 @@
         "removeDir": true,
         "removeFile": true,
         "renameFile": true,
-        "exists": true
+        "exists": true,
+        "scope": ["**"]
       }
-
     },
     "bundle": {
       "active": true,

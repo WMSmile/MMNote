@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 // import { invoke } from "@tauri-apps/api/tauri";
 import { path, dialog, fs } from "@tauri-apps/api";
 
@@ -16,21 +16,21 @@ const route = useRoute();
 
 var filepath: string | null = null;
 
-onMounted(() => {
-  console.log("onMounted >>>>>");
+// onMounted(() => {
+//   console.log("onMounted >>>>>");
 
-  cherryInstance = new Cherry({
-    id: "markdown-container",
-    value: "",
-  });
+//   cherryInstance = new Cherry({
+//     id: "markdown-container",
+//     value: "",
+//   });
 
-  console.log(route.query["filepath"]);
-  const tFilePath: string = route.query["filepath"] as string;
-  if (tFilePath) {
-    filepath = decodeURIComponent(tFilePath);
-    openFile(filepath);
-  }
-});
+//   console.log(route.query["filepath"]);
+//   const tFilePath: string = route.query["filepath"] as string;
+//   if (tFilePath) {
+//     filepath = decodeURIComponent(tFilePath);
+//     openFile(filepath);
+//   }
+// });
 
 async function openFile(filepath: string) {
   const content = await fs.readTextFile(filepath);
@@ -56,26 +56,12 @@ async function saveFile(filepath: string, content: string) {
 
 // autoSaveFile();
 
-import { appWindow } from "@tauri-apps/api/window";
-
-async function listen123() {
-  console.log(`listen123`);
-  const unlisten = await appWindow.listen("state-changed", (event) => {
-    console.log(`Got error: event`, event);
-  });
-
-  // you need to call unlisten if your handler goes out of scope e.g. the component is unmounted
-  unlisten();
-}
-setTimeout(() => {
-  listen123();
-}, 15*1000);
-
 </script>
 
 <template>
-  <Header></Header>
+  <!-- <Header></Header> -->
   <div class="m_container">
+    <Header></Header>
     <div style="height: 30px"></div>
     <div id="markdown-container" class="markdown-container"></div>
     <div style="height: 30px">底部</div>

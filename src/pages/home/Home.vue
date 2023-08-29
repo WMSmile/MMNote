@@ -58,7 +58,7 @@ function openNewWindowsForFiles(files: string[]) {
       height: 450,
       minWidth: 640,
       minHeight: 320,
-      decorations: true,
+      decorations: false,
     });
     wins.listen();
   });
@@ -105,6 +105,9 @@ const addTab = (targetName: string) => {
 const removeTab = (targetName: string) => {
   const tabs = editableTabs.value;
   let activeName = editableTabsValue.value;
+  console.log("tabs == ", tabs);
+
+
   if (activeName === targetName) {
     tabs.forEach((tab, index) => {
       if (tab.name === targetName) {

@@ -15,7 +15,7 @@ const routes = [
     { path: '/', name:"Home", component: HomePage },
     { path: '/home', component: () => import('../pages/home/Home.vue') },
     { path: '/about', component: () => import('../components/Greet.vue') },
-    { path: '/markdown', component: () => import('../pages/markdown/EditMarkDown.vue') },
+    { path: '/markdown', component: () => import('../pages/markdown/NewEditMarkDown.vue') },
     {
         path: '/user',
         name: "User",

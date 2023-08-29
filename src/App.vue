@@ -3,6 +3,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // import Greet from "./components/Greet.vue";
 
+
 //主题切换
 import { useDark, useToggle, usePreferredDark } from "@vueuse/core";
 var isDark = useDark();
@@ -11,6 +12,22 @@ useToggle(isDark);
 const toggleDark = useToggle(isDark);
 
 console.log("isDark =", isDark);
+
+
+// import { appWindow } from '@tauri-apps/api/window'
+// document
+//   .getElementById('titlebar-minimize')
+//   .addEventListener('click', () => appWindow.minimize())
+// document
+//   .getElementById('titlebar-maximize')
+//   .addEventListener('click', () => appWindow.toggleMaximize())
+// document
+//   .getElementById('titlebar-close')
+//   .addEventListener('click', () => appWindow.close())
+
+
+
+
 </script>
 
 <template>
@@ -27,6 +44,8 @@ console.log("isDark =", isDark);
 
 <style type="scss" scoped>
 .container {
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  /* overflow: hidden; */
 }
 </style>

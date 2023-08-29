@@ -148,4 +148,8 @@ const createAboutWin = async() => {
     })
 }
 
+
+import { appWindow } from '@tauri-apps/api/window';
+await appWindow.emit('window-loaded', { loggedIn: true, token: 'authToken' });
+
 */

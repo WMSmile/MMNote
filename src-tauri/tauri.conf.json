@@ -17,9 +17,15 @@
         "all": false,
         "open": true
       },
+      "path": {
+        "all": true
+      },
       "dialog": {
         "all": false,
-        "open": true
+        "open": true,
+        "message": true,
+        "confirm": true,
+        "save": true
       },
       "window": {
         "all": true,

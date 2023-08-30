@@ -1,38 +1,39 @@
 <template>
   <div data-tauri-drag-region class="titlebar">
     <div data-tauri-drag-region class="tb_l">
-      <div style="flex:1;"></div>
+      <div data-tauri-drag-region style="flex: 1"></div>
       <div
-          class="titlebar-button"
-          id="titlebar-minimize"
-          @click="minimizeClick()"
-        >
-          <img
-            src="https://api.iconify.design/mdi:window-minimize.svg"
-            alt="minimize"
-          />
-        </div>
-        <div
-          class="titlebar-button"
-          id="titlebar-maximize"
-          @click="maximizeClick()"
-        >
-          <img
-            src="https://api.iconify.design/mdi:window-maximize.svg"
-            alt="maximize"
-          />
-        </div>
-        <div class="titlebar-button" id="titlebar-close">
-          <img
-            src="https://api.iconify.design/mdi:close.svg"
-            alt="close"
-            @click="close()"
-          />
-        </div>
+        class="titlebar-button"
+        id="titlebar-minimize"
+        @click="minimizeClick()"
+      >
+        <img
+          src="https://api.iconify.design/mdi:window-minimize.svg"
+          alt="minimize"
+        />
+      </div>
+      <div
+        class="titlebar-button"
+        id="titlebar-maximize"
+        @click="maximizeClick()"
+      >
+        <img
+          src="https://api.iconify.design/mdi:window-maximize.svg"
+          alt="maximize"
+        />
+      </div>
+      <div class="titlebar-button" id="titlebar-close">
+        <img
+          src="https://api.iconify.design/mdi:close.svg"
+          alt="close"
+          @click="close()"
+        />
+      </div>
     </div>
-    <div data-tauri-drag-region class="tb_m"><label>编辑窗口</label></div>
+    <div data-tauri-drag-region class="tb_m">
+      <label>{{ props.name || "未命名" }}</label>
+    </div>
     <div data-tauri-drag-region class="tb_r"></div>
- 
   </div>
 </template>
 
@@ -40,14 +41,47 @@
 import Vue from "vue";
 import { appWindow } from "@tauri-apps/api/window";
 
+let props = defineProps({
+  name: {
+    type: String, //接受的数据类型
+    default: "未命名", //接受默认数据
+  },
+  isCustomClose: {
+    type: Boolean,
+    default: false,
+  },
+  isCustomMax: {
+    type: Boolean,
+    default: false,
+  },
+  isCustomMin: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(["close", "toggleMaximize", "minimize"]);
+
 const close = () => {
-  appWindow.close();
+  if (props.isCustomClose) {
+    emit("close", {});
+  } else {
+    appWindow.close();
+  }
 };
 const maximizeClick = () => {
-  appWindow.toggleMaximize();
+  if (props.isCustomMax) {
+    emit("toggleMaximize", {});
+  } else {
+    appWindow.toggleMaximize();
+  }
 };
 const minimizeClick = () => {
-  appWindow.minimize();
+  if (props.isCustomMin) {
+    emit("minimize", {});
+  } else {
+    appWindow.minimize();
+  }
 };
 </script>
 
@@ -65,22 +99,21 @@ const minimizeClick = () => {
   left: 0;
   right: 0;
   z-index: 20;
-  
 }
-.tb_l{
-  flex:1;
+.tb_l {
+  flex: 1;
   display: flex;
   flex-direction: row-reverse;
 }
-.tb_m{
-  flex:1;
+.tb_m {
+  flex: 1;
   text-align: center;
   font: 15px;
   height: 30px;
   line-height: 30px;
 }
-.tb_r{
-  flex:1;
+.tb_r {
+  flex: 1;
 }
 .titlebar-button {
   display: inline-flex;

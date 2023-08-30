@@ -6,6 +6,10 @@
 
 //主题切换
 import { useDark, useToggle, usePreferredDark } from "@vueuse/core";
+import { ElConfigProvider } from 'element-plus'
+
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+
 var isDark = useDark();
 useToggle(isDark);
 // const isDark = usePreferredDark();
@@ -13,7 +17,7 @@ const toggleDark = useToggle(isDark);
 
 console.log("isDark =", isDark);
 
-
+const locale = zhCn;
 // import { appWindow } from '@tauri-apps/api/window'
 // document
 //   .getElementById('titlebar-minimize')
@@ -38,14 +42,18 @@ console.log("isDark =", isDark);
     </button> -->
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
-    <router-view></router-view>
+    <el-config-provider :locale="locale">
+      <router-view></router-view>
+    </el-config-provider>
   </div>
 </template>
 
 <style type="scss" scoped>
 .container {
+  margin: 0; 
+  padding-top: 0;
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
+  /* background-color: blue; */
 }
 </style>

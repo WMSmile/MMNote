@@ -16,6 +16,7 @@ tauri-build = { version = "1.4", features = [] }
 tauri = { version = "1.4", features = [ "path-all", "dialog-save", "dialog-confirm", "dialog-message", "fs-all", "window-all", "dialog-open", "shell-open"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+tauri-plugin-fs-extra = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

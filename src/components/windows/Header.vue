@@ -22,11 +22,10 @@
           alt="maximize"
         />
       </div>
-      <div class="titlebar-button" id="titlebar-close">
+      <div class="titlebar-button" id="titlebar-close" @click="close()">
         <img
           src="https://api.iconify.design/mdi:close.svg"
           alt="close"
-          @click="close()"
         />
       </div>
     </div>

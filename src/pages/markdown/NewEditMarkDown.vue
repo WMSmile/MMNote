@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import {path, dialog, fs } from "@tauri-apps/api";
+import { path, dialog, fs, invoke} from "@tauri-apps/api";
 import { appWindow } from "@tauri-apps/api/window";
 
 import Cherry from "cherry-markdown/dist/cherry-markdown.core";
@@ -12,6 +12,8 @@ import Header from "../../components/windows/Header.vue";
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
 
 import { ElMessageBox } from "element-plus";
+
+import { metadata } from "tauri-plugin-fs-extra-api";
 
 // 添加一个导航守卫，在当前组件将要离开时触发。
 onBeforeRouteLeave((to, from, next) => {
@@ -92,6 +94,7 @@ async function w_close() {
         console.log("contentStr = ", contentStr);
 
         saveFile(filepath || "", contentStr);
+        // await appWindow.close();
       } else {
         // const defaultPath = await path.downloadDir();
         const filePath = await dialog.save({
@@ -105,20 +108,29 @@ async function w_close() {
           ],
         });
         console.log("filePath", filePath);
-        
-        
-        console.log("save");
-        const contentStr = cherryInstance.getMarkdown();
-        console.log("contentStr = ", contentStr);
-        saveFile(filepath || "", contentStr);
-       
+
+        if (filePath) {
+          let isok = await invoke('plugin:fs_ex|file_create', { path:filePath });
+          console.log("file create ",isok);
+
+          console.log("join >> ");
+          const data = await metadata(filePath);
+          console.log("data = ",data)
+
+          console.log("save");
+          const contentStr = cherryInstance.getMarkdown();
+          console.log("contentStr = ", contentStr);
+          saveFile(filePath || "", contentStr);
+        } else {
+          console.log("未保存成功！");
+        }
       }
 
       //关闭窗口
       // await appWindow.close();
     })
-    .catch(async (err) => {
-      console.log("not save",err);
+    .catch(async (err: any) => {
+      console.log("not save", err);
       //关闭窗口
       // await appWindow.close();
     });
